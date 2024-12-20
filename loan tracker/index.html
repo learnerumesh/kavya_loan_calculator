@@ -1,0 +1,681 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Financial Rescue Choices</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            background-color: #f4f7f6;
+            font-family: 'Arial', sans-serif;
+            color: #333;
+        }
+        .container {
+            max-width: 1200px;
+            margin-top: 50px;
+        }
+        h1 {
+            text-align: center;
+            margin-bottom: 50px;
+            color: white; /* Green color for heading */
+            background-color: green;
+        }
+        .section-header {
+            font-size: 1.8rem;
+            margin-bottom: 20px;
+            color: #388e3c;
+            text-transform: uppercase;
+        }
+        .wallet-icon {
+            font-size: 18px;
+            font-weight: bold;
+            color: #388e3c;
+            position: fixed;
+            top: 9%;
+            right: 20px;
+            background-color: #fff;
+            padding: 10px 20px;
+            border-radius: 50px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            z-index: 9999;
+
+        }
+        .card {
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            overflow: hidden;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease;
+        }
+        .card:hover {
+            transform: translateY(-5px);
+        }
+        .card img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+        .card-body {
+            padding: 20px;
+            background-color: #ffffff;
+        }
+        .btn {
+            width: 100%;
+            padding: 12px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            border-radius: 8px;
+        }
+        .btn.select-btn {
+            background-color: #388e3c;
+            color: white;
+        }
+        .btn.unselect-btn {
+            background-color: #f44336;
+            color: white;
+        }
+        .section-gap {
+            margin-bottom: 60px;
+        }
+        /* Adding fade-in animation */
+        @keyframes fadeIn {
+        from {
+            opacity: 0;
+        }
+        to {
+            opacity: 1;
+        }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Wallet Balance -->
+    <div class="wallet-icon text-center">
+        <div style="color: orange;">Emergency fund needed : RS 1100000</div>
+    <div>Fund needed: <p id="neededamount" style="color: red; display:inline;">RS 1030000</p></div>
+    <div id="walletBalance">Wallet:  RS 70000</div>
+    </div>
+
+    <div class="container">
+        <h1>Financial Rescue Choices</h1>
+
+        <!-- Section 1: Sale of Assets -->
+        <div class="section-gap">
+            <div class="section-header">Option 1: Sale of Assets</div>
+            <div class="row">
+                <!-- Item 1: Jewellery -->
+                <div class="col-md-3">
+                    <div class="card" id="jewellery">
+                        <img src="images/jwellery.jpg" alt="Jewellery">
+                        <div class="card-body">
+                            <h5>Jewellery</h5>
+                            <p>Market Value: Rs.155,000 </p>
+                            <p>Sale Value: Rs. 150,000</p>
+                            <button class="btn select-btn" id="jwellery" onclick="selectItem(150000, 'jewellery')">Sell</button>
+                            <button class="btn unselect-btn" data-select-id="jwellery" style="display:none;" onclick="unselectItem(150000, 'jewellery')">Do not sell</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Item 2: Bike -->
+                <div class="col-md-3">
+                    <div class="card" id="bike">
+                        <img src="images/bike.jpg" alt="Bike">
+                        <div class="card-body">
+                            <h5>Bike</h5>
+                            <p>Market Value: Rs. 125,000 </p>
+                            <p>Sale Value: Rs. 120,000</p>
+                            <button class="btn select-btn" id="bike" onclick="selectItem(120000, 'bike')">Sell</button>
+                            <button class="btn unselect-btn" data-select-id="bike" style="display:none;" onclick="unselectItem(120000, 'bike')">Do not sell</button>
+                        </div>
+                    </div>
+                </div>
+                
+
+                <!-- Item 3: Antique Furniture -->
+                <div class="col-md-3">
+                    <div class="card" id="furniture">
+                        <img src="images/furniture.jpg" alt="Antique Furniture">
+                        <div class="card-body">
+                            <h5>Antique Furniture & Heirlooms</h5>
+                            <p>Market Value: Rs. 310,000</p>
+                            <p>Sale Value: Rs. 180,000</p>
+                            <button class="btn select-btn" id="furniture" onclick="selectItem(180000, 'furniture')"data-bs-toggle="modal" data-bs-target="#furnitureModal" >Sell</button>
+                            <button class="btn unselect-btn" data-select-id="furniture" style="display:none;" onclick="unselectItem(180000, 'furniture')" ">Do not sell</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Item 4: Scooter -->
+                <div class="col-md-3">
+                    <div class="card" id="scooter">
+                        <img src="https://img.freepik.com/free-photo/cool-motorcycle-outdoors_23-2150781704.jpg?t=st=1733815297~exp=1733818897~hmac=aca71609ac6ff41690c1179a62deb57941914d474ce0df38f612d439aff5af99&w=900" alt="Scooter">
+                        <div class="card-body">
+                            <h5>Scooter</h5>
+                            <p>Market Value: Rs. 130,000</p>
+                            <p>Sale Value: Rs. 120,000</p>
+                            <button class="btn select-btn" id="scooter" onclick="selectItem(120000, 'scooter')">Sell</button>
+                            <button class="btn unselect-btn" data-select-id="scooter" style="display:none;" onclick="unselectItem(120000, 'scooter')">Do not sell</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Section 2: Borrowing from Friends/Family -->
+        <div class="section-gap">
+            <div class="section-header">Option 2: Borrowing from Friends/Family</div>
+            <div class="row">
+                <!-- Family -->
+                <div class="col-md-6">
+                    <div class="card" id="family">
+                        <img src="https://img.freepik.com/free-photo/portrait-cartoon-style-family-celebrating-christmas_23-2150936587.jpg?t=st=1733815378~exp=1733818978~hmac=11ac4fee1e59db6733de8a66461a585bbbb2ad1fb1af8151cfd949470b795853&w=360" alt="Family">
+                        <div class="card-body">
+                            <h5>Family</h5>
+                            <p>Amount: Rs. 140,000 </p>
+                            <button class="btn select-btn" id="family" onclick="selectItem(140000, 'family')">Ask</button>
+                            <button class="btn unselect-btn" data-select-id="family" style="display:none;" onclick="unselectItem(140000, 'family')">Do not ask</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Friends -->
+                <div class="col-md-6">
+                    <div class="card" id="friends">
+                        <img src="images/friends.jpg" alt="Friends">
+                        <div class="card-body">
+                            <h5>Friends</h5>
+                            <p>Amount: Rs. 200,000 (Interest-Free but need to pay within 3 months)</p>
+                            <button class="btn select-btn" id="friends" onclick="selectItem(200000, 'friends')" data-bs-toggle="modal" data-bs-target="#infoModal">Ask</button>
+                            <button class="btn unselect-btn" data-select-id="friends" style="display:none;" onclick="unselectItem(200000, 'friends')">Do not ask</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Section 3: Banking Offers -->
+        <div class="section-gap">
+            <div class="section-header">Option 3: Bank Loan</div>
+            <!-- from here bank mortgage -->
+            <div class="col-md-8 mx-auto">
+                <div class="card d-flex flex-row align-items-center p-2 mx-auto" id="family">
+                    <!-- Image Section -->
+                    <img 
+                        src="images/land.jpg" 
+                        alt="Family" 
+                        class="img-fluid" 
+                        style="width: 450px; height: auto; border-radius: 5px; margin-right: 15px;"
+                    >
+                    <!-- Details Section -->
+                    <div class="card-body p-0">
+                        <h5>Bank Mortgage Availabe</h5>
+                        <p>Agricultural Land </p>
+                        <p>Valuation: Rs. 22,00,000 </p>
+                        
+                    </div>
+                </div>
+            </div>
+
+            <!-- till here -->
+
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="card" id="bankoffer1">
+                        <img src="images/kavya.jpg" alt="Bank Offer 1">
+                        <div class="card-body">
+                            <!-- previously ABC bank -->
+                            <h5>Bank of Kavya</h5>
+                            
+                            <dl class="row">
+                              <dt class="col-sm-5">Interest Rate</dt>
+                              <dd class="col-sm-5">9% p.a.</dd>
+
+                              <dt class="col-sm-5">Processing Fee</dt>
+                              <dd class="col-sm-5">1% of loan amount</dd>
+
+                              <dt class="col-sm-5">Documentation Charge</dt>
+                              <dd class="col-sm-5">Rs. 2000</dd>
+
+                              <dt class="col-sm-5">Legal and Valuation Fee</dt>
+                              <dd class="col-sm-5">Rs. 2000</dd>
+                            </dl>
+                            <button class="btn select-btn" id="abcbank" onclick="selectabc()"data-bs-toggle="modal" data-bs-target="#loanModal">Accept</button>
+                            <button class="btn unselect-btn" data-select-id="abcbank" style="display:none;" onclick="unselectabc()">Reject</button>
+                            <!-- <button class="btn select-btn" id="abcbank" data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-whatever="abcBank" o>Accept</button>
+                            <button class="btn unselect-btn" style="display:none;">Reject</button> -->
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="card" id="bankoffer2">
+                        <img src="images/islington.jpg" alt="Bank Offer 1">
+                        <div class="card-body">
+                            <!-- previously XYZ bank -->
+                            <h5>Bank of Islington</h5>
+                            
+                            <dl class="row">
+                              <dt class="col-sm-5">Interest Rate</dt>
+                              <dd class="col-sm-5">10% p.a.</dd>
+
+                              <dt class="col-sm-5">Processing Fee</dt>
+                              <dd class="col-sm-5">Nil</dd>
+
+                              <dt class="col-sm-5">Documentation Charge</dt>
+                              <dd class="col-sm-5">Rs. 700</dd>
+
+                              <dt class="col-sm-5">Legal and Valuation Fee</dt>
+                              <dd class="col-sm-5">Rs. 500</dd>
+                            </dl>
+                            <button class="btn select-btn" id="xyzbank" onclick="selectxyz()"data-bs-toggle="modal" data-bs-target="#loanModal">Accept</button>
+                            <button class="btn unselect-btn" data-select-id="xyzbank" style="display:none;" onclick="unselectxyz()">Reject</button>
+                            <!-- <button class="btn select-btn" id="xyzbank" data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-whatever="xyzBank" >Accept</button>
+                            <button class="btn unselect-btn" style="display:none;">Reject</button> -->
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Additional Bank Offer Cards as needed -->
+            </div>
+        </div>
+        <div class="row">
+                <div class="col-sm text-center">
+                    <div class="card" id="test">
+                        <button class="btn btn-secondary" id="submit" data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-whatever="abcBank" >Calculate Interest and Bank Expenses for 1st year</button>
+                    </div>
+                </div>
+        </div>
+    <!-- Display the list of selected button IDs -->
+  <!-- <div class="mt-4">
+    <h5>Selected Button IDs:</h5>
+    <ul id="selectedButtonsList" class="list-group"></ul>
+  </div> -->
+</div>
+    <!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel"></h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form>
+            
+          <div class="mb-3">
+            <label for="input1" class="form-label">Interest amount</label>
+            <input type="number" class="form-control" id="interest" placeholder="Enter value">
+          </div>
+          <div class="mb-3">
+            <label for="input2" class="form-label">Processing fee</label>
+            <input type="number" class="form-control" id="processing" placeholder="Enter value">
+          </div>
+          <div class="mb-3">
+            <label for="input3" class="form-label">Documentation charge</label>
+            <input type="number" class="form-control" id="documentation" placeholder="Enter value">
+          </div>
+          <div class="mb-3">
+            <label for="input4" class="form-label">Legal and valuation fee</label>
+            <input type="number" class="form-control" id="legal" placeholder="Enter value">
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        <button type="button" id="checkbtn" class="btn btn-primary">Check</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- friends modal -->
+<div class="modal fade" id="infoModal" tabindex="-1" aria-labelledby="infoModal" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Think it through!</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">           
+          <div class="mb-3 text-center">
+            <img src="https://img.freepik.com/free-vector/caution-sign-error-404_24911-115351.jpg?t=st=1733990320~exp=1733993920~hmac=0d81711060052726710b63f8ad409984c7a783da222df2f684d5c6f834383c45&w=740" 
+                        alt="Family" 
+                        class="img-fluid" 
+                        style="width: 250px; height: auto; border-radius: 5px;">
+          </div>
+          <div class="mb-3 text-center">
+            <p>Family is more invested in your well-being, making them a reliable choice for emergency funds. Borrowing from friends may strain relationships, especially with the expectation of quick repayment.</p>
+            <h3>Think before asking!</h3>
+          </div>
+          </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- till here -->
+
+<!-- Furniture Information modal -->
+<div class="modal fade" id="furnitureModal" tabindex="-1" aria-labelledby="infoModal" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Pause and Ponder</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">           
+          <div class="mb-3 text-center">
+            <img src="https://img.freepik.com/free-vector/caution-sign-error-404_24911-115351.jpg?t=st=1733990320~exp=1733993920~hmac=0d81711060052726710b63f8ad409984c7a783da222df2f684d5c6f834383c45&w=740
+" 
+                        alt="Family" 
+                        class="img-fluid" 
+                        style="width: 250px; height: auto; border-radius: 5px;">
+          </div>
+          <div class="mb-3 text-center">
+            <p>Selling antique furniture and heirlooms during an emergency often leads to significant financial loss, as buyers in such situations take advantage of your urgency to offer below-market prices. Additionally, these items hold sentimental and long-term value, which may far outweigh the immediate financial benefit of selling them.
+</p>
+            <h3>Think before selling!</h3>
+          </div>
+          </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- till here -->
+
+<!-- Loan modal -->
+<div class="modal fade" id="loanModal" tabindex="-1" aria-labelledby="infoModal" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Decision Checkpoint!</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">           
+          <div class="mb-3 text-center">
+            <img src="https://img.freepik.com/free-vector/pensive-businessman-making-decision_74855-5283.jpg?t=st=1733995082~exp=1733998682~hmac=157f921fe2057d59ef4435fa6b7c5ecb0077e265799dd2e0cfaca93ab1496e08&w=1380" 
+                        alt="Family" 
+                        class="img-fluid" 
+                        style="width: 250px; height: auto; border-radius: 5px;">
+          </div>
+          <div class="mb-3 text-center">
+            <p>Before choosing, analyze the total cost of the loan over its entire duration, including interest, processing fees, and other charges. A slightly higher interest rate might be more cost-effective if the upfront fees are significantly lower.
+</p>
+            <h3>Think before choosing!</h3>
+          </div>
+          </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- till here -->
+
+<!-- congratulation/try again modal -->
+<!-- Congratulations Modal -->
+<div class="modal fade" id="congratulationsModal" tabindex="-1" aria-labelledby="congratulationsModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-body text-center" id="modalContent" style="background: linear-gradient(45deg, #a1ffce, #faffd1);">
+        <div class="py-4">
+          <h1 class="display-4 fw-bold" id="modalTitle" style="color: #fff;">Congratulations!</h1>
+          <p class="lead text-light" id="modalMessage">You've successfully achieved your goal!</p>
+          <div class="mt-3" id="modalImage">
+            <img src="https://via.placeholder.com/150x150.png?text=🎉" class="img-fluid rounded-circle" alt="Celebration">
+          </div>
+          <p class="mt-4 text-light">Keep up the amazing work!</p>
+        </div>
+        <button class="btn btn-secondary btn-sm" id="reloadbtn" onclick="location.reload();">
+        </button>
+
+      </div>
+    </div>
+    
+  </div>
+</div>
+
+<!-- Success and Fail Music -->
+<audio id="successMusic" src="audio/success.mp3"></audio>
+<audio id="failMusic" src="audio/fail.mp3"></audio>
+
+    <script>
+        let currentBalance = 70000;
+        let neededBalance = 1030000;
+        let sum=0;
+    
+
+        function updateWalletBalance() {
+            document.getElementById("walletBalance").textContent = `💰 RS ${currentBalance}`;
+            document.getElementById("neededamount").textContent = `💰 RS ${neededBalance}`;
+        }
+
+        function selectItem(amount, itemId) {
+            if (document.getElementById(itemId).querySelector(".unselect-btn").style.display === "none") {
+                currentBalance += amount;
+                neededBalance -= amount;
+                document.getElementById(itemId).querySelector(".unselect-btn").style.display = "inline-block";
+                document.getElementById(itemId).querySelector(".select-btn").style.display = "none";
+                updateWalletBalance();
+            }
+        }
+
+        function unselectItem(amount, itemId) {
+            currentBalance -= amount;
+            neededBalance += amount;
+            document.getElementById(itemId).querySelector(".select-btn").style.display = "inline-block";
+            document.getElementById(itemId).querySelector(".unselect-btn").style.display = "none";
+            updateWalletBalance();
+        }
+
+        
+        //from here bank accept
+        function selectabc() {
+            // currentBalance += 140000;
+            document.getElementById("bankoffer1").querySelector(".unselect-btn").style.display = "inline-block";
+            document.getElementById("bankoffer1").querySelector(".select-btn").style.display = "none";
+            document.getElementById("bankoffer2").querySelector(".select-btn").disabled=true;
+            // updateWalletBalance();
+        }
+
+        function unselectabc() {
+            // currentBalance -= 140000;
+            document.getElementById("bankoffer1").querySelector(".select-btn").style.display = "inline-block";
+            document.getElementById("bankoffer1").querySelector(".unselect-btn").style.display = "none";
+            document.getElementById("bankoffer2").querySelector(".select-btn").disabled=false;
+            // updateWalletBalance();
+        }
+
+        function selectxyz() {
+            // currentBalance += 100000;
+            document.getElementById("bankoffer2").querySelector(".unselect-btn").style.display = "inline-block";
+            document.getElementById("bankoffer2").querySelector(".select-btn").style.display = "none";
+            document.getElementById("bankoffer1").querySelector(".select-btn").disabled=true;
+            // updateWalletBalance();
+        }
+
+        function unselectxyz() {
+            // currentBalance -= 100000;
+            document.getElementById("bankoffer2").querySelector(".select-btn").style.display = "inline-block";
+            document.getElementById("bankoffer2").querySelector(".unselect-btn").style.display = "none";
+            document.getElementById("bankoffer1").querySelector(".select-btn").disabled=false;
+            // updateWalletBalance();
+        }
+        
+
+        //here 
+         // Array to store the IDs of selected buttons
+  const selectedButtonIDs = [];
+
+  // Add event listeners to all Select buttons
+  document.querySelectorAll('.select-btn').forEach(button => {
+    button.addEventListener('click', function() {
+      const buttonId = this.id;
+
+      // Add the button ID to the array if not already present
+      if (!selectedButtonIDs.includes(buttonId)) {
+        selectedButtonIDs.push(buttonId);
+
+      }
+    });
+  });
+
+  // Add event listeners to all Unselect buttons
+  document.querySelectorAll('.unselect-btn').forEach(button => {
+    button.addEventListener('click', function() {
+      // Get the corresponding Select button ID from the data attribute
+      const selectButtonId = this.getAttribute('data-select-id');
+
+      // Remove the button ID from the array if present
+      const index = selectedButtonIDs.indexOf(selectButtonId);
+      if (index > -1) {
+        selectedButtonIDs.splice(index, 1); // Remove the ID from the array
+
+        // Remove the corresponding list item
+        const listItem = document.getElementById(`list-${selectButtonId}`);
+        if (listItem) {
+          listItem.remove();
+        }
+      }
+    });
+  });
+
+// event listener to the submit button
+document.getElementById("submit").addEventListener("click", function () {
+    if (selectedButtonIDs.includes("abcbank")) {
+        document.getElementById("exampleModalLabel").textContent="Overall Expense for ABC Bank for Year 1";
+        console.log("abc bank is there");
+    } else {
+        console.log("xyz bank is there");
+        document.getElementById("exampleModalLabel").textContent="Overall Expense for XYZ Bank for Year 1";
+    }
+});
+
+
+// event listener to the check button
+document.getElementById("checkbtn").addEventListener("click", function () {
+    const interest = parseFloat(document.getElementById('interest').value) || 0;
+    const processing = parseFloat(document.getElementById('processing').value) || 0;
+    const documentation = parseFloat(document.getElementById('documentation').value) || 0;
+    const legal = parseFloat(document.getElementById('legal').value) || 0;
+
+    // Calculate sum
+    const total = interest + processing + documentation + legal;
+    // alert("The total sum is: " + total);
+
+    if (selectedButtonIDs.includes("abcbank")){
+        console.log("abc bank select vayo");
+        let interestamount = 0.09*neededBalance;
+        let processingfee = 0.01*neededBalance;
+        let documentationcharge=2000;
+        let legalcharge=2000;
+        sum=interestamount+processingfee+documentationcharge+legalcharge;
+    
+    }
+    else{
+        console.log("xyz select vo jasto xa");
+        let interestamount = 0.1*neededBalance;
+        let processingfee = 0;
+        let documentationcharge=700;
+        let legalcharge=500;
+        sum=interestamount+processingfee+documentationcharge+legalcharge;
+    }
+    
+
+// Get the modal element
+const modalElement = document.getElementById('exampleModal');
+
+// Check if the modal instance already exists
+let modalInstance = bootstrap.Modal.getInstance(modalElement);
+
+// If it doesn't exist, create a new instance
+if (!modalInstance) {
+  modalInstance = new bootstrap.Modal(modalElement);
+}
+
+// Close the modal
+modalInstance.hide();
+
+
+    const congratulationsModal = new bootstrap.Modal(document.getElementById('congratulationsModal'));
+    const successMusic = document.getElementById('successMusic');
+    const failMusic = document.getElementById('failMusic');
+
+    function showModal(a, b) {
+    const modalTitle = document.getElementById('modalTitle');
+    const modalMessage = document.getElementById('modalMessage');
+    const modalImage = document.getElementById('modalImage');
+
+    // Check condition and update modal content
+    if (a === b) {
+      modalTitle.textContent = 'Congratulations!';
+      modalMessage.textContent = "You've successfully achieved your goal!";
+      modalImage.innerHTML = '<https://dummyimage.com/150x150/00ff00/ffffff.png&text=%F0%9F%8E%89" class="img-fluid rounded-circle" alt="Celebration">';
+      modalContent.style.background = "linear-gradient(45deg, #4caf50, #8bc34a)"; // Green background
+      modalContent.style.animation = "fadeIn 1.5s ease-in-out";
+      document.getElementById('reloadbtn').textContent="Restart";
+      failMusic.pause();
+      failMusic.currentTime = 0;
+      successMusic.play();
+      
+    } else {
+      modalTitle.textContent = 'Try Again!';
+      modalMessage.textContent = "Don't give up, try once more!";
+      modalImage.innerHTML = '<https://dummyimage.com/150x150/ff0000/ffffff.png&text=%E2%9D%8C" class="img-fluid rounded-circle" alt="Try Again">';
+      modalContent.style.background = "linear-gradient(45deg, #f44336, #e57373)"; // Red background
+      modalContent.style.animation = "fadeIn 1.5s ease-in-out";
+      document.getElementById('reloadbtn').textContent="Retry";
+      successMusic.pause();
+      successMusic.currentTime = 0;
+      failMusic.play();
+
+    }
+
+    congratulationsModal.show(); // Show the modal
+  }
+
+  // Example condition to trigger the modal
+
+  showModal(sum, total); // Call the function with values of a and b
+
+  // Pause music when the modal is hidden
+  document.getElementById('congratulationsModal').addEventListener('hidden.bs.modal', () => {
+    successMusic.pause();
+    successMusic.currentTime = 0; // Reset success music
+    failMusic.pause();
+    failMusic.currentTime = 0; // Reset fail music
+  });
+
+    
+});
+
+function music(){
+    const congratulationsModal = new bootstrap.Modal(document.getElementById('congratulationsModal'));
+  const successMusic = document.getElementById('successMusic');
+
+  // Play music when the modal is shown
+  document.getElementById('congratulationsModal').addEventListener('shown.bs.modal', () => {
+    successMusic.play();
+  });
+
+  // Pause music when the modal is hidden
+  document.getElementById('congratulationsModal').addEventListener('hidden.bs.modal', () => {
+    successMusic.pause();
+    successMusic.currentTime = 0; // Reset music
+  });
+}
+
+
+    </script>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.min.js"></script>
+</body>
+</html>
